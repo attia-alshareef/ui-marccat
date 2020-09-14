@@ -1,0 +1,50 @@
+@import '@folio/stripes-components/lib/variables';
+
+[data-module] {
+  height: 100%;
+}
+
+[data-full-width] {
+  width: 100%;
+}
+
+/* Disabled because it got applied globally and
+  caused a bug where the app- and profile-dropdown
+  got rendered behind the content, making it inaccessible.
+/* header {
+  z-index: 2 !important;
+} */
+
+.padding8 {
+  padding-bottom: 8px;
+}
+
+.max-width {
+  width: 100%;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.rightPosition {
+  margin-right: '10px';
+  float: 'right';
+}
+
+[data-role="menu"] {
+  width: auto !important;
+  font-weight: 600;
+}

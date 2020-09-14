@@ -1,0 +1,8 @@
+coverage/**/*.js
+dist/**/*.js
+/node_modules/**/*.js
+lib/**/*.js
+src/locale/*
+/artifacts/**/*
+/dist
+flow-typed/

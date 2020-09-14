@@ -1,0 +1,130 @@
+
+.leaderData {
+  padding-top: 4px;
+}
+
+.fieldContainer006_007 {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #dcdcdc;
+  background-position: left top;
+  background-repeat: repeat;
+  padding: 15px;
+  padding-bottom: 15px;
+  width: 80%;
+
+  & [no-padding] {
+    padding-right: 0;
+  }
+
+  & .fieldWrapper {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  & label {
+    padding-right: 16px;
+  }
+
+  & input {
+    flex: 1;
+    padding-left: 8px;
+  }
+}
+
+.fieldContainer {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #dcdcdc;
+  background-position: left top;
+  background-repeat: repeat;
+  padding: 15px;
+  padding-bottom: 15px;
+
+  & [no-padding] {
+    padding-right: 0;
+  }
+
+  & .fieldWrapper {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  & label {
+    padding-right: 16px;
+  }
+
+  & input {
+    flex: 1;
+    padding-left: 8px;
+  }
+}
+
+.marcFieldIconCaret {
+  float: right;
+  cursor: pointer;
+  padding-left: 16px;
+
+  & .prepend {
+    padding-left: 0;
+    padding-right: 8px;
+  }
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
+.variableFieldFormHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.marcEditableListRow {
+  display: flex;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  vertical-align: middle;
+  padding-top: 16px;
+  border-radius: 8px;
+  background-color: #efefef;
+  height: 48px;
+}
+
+.marcEditableListHeaders {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  height: 2px;
+}
+
+.marcEditableListError {
+  width: 100%;
+  padding: 6px;
+}
+
+.leaderResults,
+.hidden,
+[hidden] {
+  display: none;
+}
+
+.leaderResultsActive,
+.visible,
+[visible] {
+  display: block;
+  padding-top: 24px;
+}
+
+.rightPosition {
+  margin-right: '10px';
+  float: 'right';
+}

@@ -1,0 +1,138 @@
+@import '../../../shared/styles/common.css';
+
+.authority {
+  width: 18px;
+  height: 18px;
+  background-color: var(--danger);
+  border-radius: 25%;
+}
+
+.bibliographic {
+  width: 18px;
+  height: 18px;
+  background-color: var(--primary);
+  border-radius: 25%;
+}
+
+.rightPosition {
+  float: right;
+  margin-top: 10px;
+  height: 24px;
+  max-height: 24px;
+  line-height: 12px;
+}
+
+.rightPositionTop {
+  float: right;
+  margin-top: 10px;
+  height: 24px;
+  margin-right: 5px;
+  max-height: 24px;
+  line-height: 12px;
+}
+
+.mt16 {
+  margin-top: var(--margin-top-xxl);
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.tagHighLighted {
+  background-color: var(--tag-highlight-color);
+}
+
+.leftBracket {
+  border-left: solid 4px var(--primary);
+  border-radius: 50%;
+  height: 70px;
+  width: 60px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.rightBracket {
+  border-right: solid 4px var(--primary);
+  border-radius: 50%;
+  height: 70px;
+  width: 60px;
+  padding-top: 10px;
+  float: right;
+  cursor: pointer;
+}
+
+.leftBracketDisabled {
+  border-left: solid 4px rgba(0, 0, 0, 0.62);
+  border-radius: 50%;
+  height: 70px;
+  width: 60px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.rightBracketDisabled {
+  border-right: solid 4px rgba(0, 0, 0, 0.62);
+  border-radius: 50%;
+  height: 70px;
+  width: 60px;
+  padding-top: 10px;
+  float: right;
+  cursor: pointer;
+}
+
+.bracketSpacer {
+  background-color: #fff;
+}
+
+.colTrash {
+  margin-top: 15px;
+  display: flex;
+}
+
+.forwardBracket {
+  z-index: 999;
+  background-color: #fff;
+}
+
+.record-detail-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  & .key {
+    display: block;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  & .indicator {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.82);
+  }
+}
+
+.inventoryButton {
+  margin-top: 1.5rem;
+}
+
+.dropdownContainerText {
+  line-height: 1.8;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.align-right {
+  float: right;
+  text-align: right;
+}
+
+.noRef {
+  height: 15px;
+  width: 15px;
+  border: 3px solid var(--danger);
+  border-radius: 25%;
+}
+
+.countDocs {
+  justify-content: center;
+}
