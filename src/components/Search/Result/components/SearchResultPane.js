@@ -1,8 +1,8 @@
 /* eslint-disable no-sparse-arrays */
 // @flow
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Pane, Icon, MultiColumnList, Button, PaneHeader } from '@folio/stripes/components';
+import { Pane, Icon, MultiColumnList, PaneHeader } from '@folio/stripes/components';
 import { AppIcon } from '@folio/stripes-core';
 import type { Props } from '../../../../flow/types.js.flow';
 import {
@@ -73,6 +73,7 @@ class SearchResultPane extends React.Component<Props, {}> {
               mergedRecord && mergedRecord.length > 0 ? message : messageNoContent
             }
             appIcon={<AppIcon app={C.META.ICON_TITLE} />}
+            id="data-test-search-result-pane"
           />
         )}
         firstMenu={firstMenu}
@@ -129,6 +130,7 @@ class SearchResultPane extends React.Component<Props, {}> {
               actionMenu={actionMenu}
               paneSub={message}
               appIcon={<AppIcon app={C.META.ICON_TITLE} />}
+              id="data-test-search-result-pane"
             />
           )}
           firstMenu={firstMenu}
@@ -153,7 +155,7 @@ class SearchResultPane extends React.Component<Props, {}> {
           }}
         >
           <MultiColumnList
-            id="data-test-search-results-table"
+            id="data-test-search-results-table-more-results"
             autosize
             defaultWidth="fill"
             columnWidths={columnWidthMapper(bibsOnly, autOnly)}

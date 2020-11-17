@@ -63,6 +63,17 @@ export function searchEngineReducer(state = { isLoading, isReady }, action) {
       isFromCat: 'N',
       moreData: action.moreData,
       isReady: true,
+      bibsOnlyFilter: action.bibsOnlyFilter,
+      autOnlyFilter: action.autOnlyFilter
+    };
+  case ACTION.FILTER_SEARCH_CLEAR:
+    return {
+      segment: action.segment
+    };
+  case ACTION.FILTER_SEGMENT_ACTIVE:
+    return {
+      ...state,
+      segment: action.segment
     };
   default:
     return state;
@@ -324,6 +335,29 @@ export function filterReducer(state = { isLoading }, action) {
       filters: action.payload,
       name: action.filterName,
       checked: action.isChecked
+    };
+  case ACTION.RESET:
+    return {
+      ...state,
+      filters: action.payload,
+      name: action.filterName,
+      checked: action.isChecked,
+
+      queryBib: '',
+      queryAuth: '',
+      bibliographicResults: [],
+      authorityResults: [],
+      bibCounter: action.bibCounter,
+      authCounter: action.authCounter,
+      dataOld: action.dataOld,
+      oldBibArray: [],
+      oldAuthArray: [],
+      isLoading: false,
+      isFromCat: 'N',
+      moreData: action.moreData,
+      isReady: true,
+      bibsOnlyFilter: action.bibsOnlyFilter,
+      autOnlyFilter: action.autOnlyFilter
     };
   default:
     return state;

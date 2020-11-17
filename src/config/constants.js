@@ -25,11 +25,12 @@ export const RESOURCE_TYPE = {
   OKAPI: 'OKAPI'
 };
 export const ENDPOINT = {
-
   DEFAULT_LANG_VIEW: 'lang=eng&view=1',
   DEV_VM_OKAPI_URL: 'http://okapi.atcult.it:9130/marccat',
   OKAPI_URL: state => `${state.okapi.url}/marccat`,
   MERGED_SEARCH_URL: '/mergedSearch',
+  SEARCH_AUTH_URL: '/searchAuth',
+  SEARCH_BIB_URL: '/search',
   SEARCH_URL: '/searchVertical',
   SEARCH_URL_JSON: '/search',
   TOTAL_COUNT_SEARCH_URL: '/countSearch',
@@ -38,12 +39,14 @@ export const ENDPOINT = {
   BROWSE_NEXT_PAGE: '/next-page',
   VIEW_TEMPLATE_URL: '/record-templates',
   EMPTY_RECORD_URL: '/bibliographic-record/from-template/',
+  EMPTY_RECORD_AUTH_URL: '/authority-record/from-template/',
   DUPLICATE_RECORD_URL: '/bibliographic-record/duplicate',
   FIXED_FIELD_CODE_GROUPS_URL: '/fixed-fields-code-groups',
   HEADER_TYPES_URL: '/header-types',
   CREATE_HEADING_URL: '/create-heading',
   CHANGE_DISPLAY_VALUE: '/bibliographic-record/fixed-field-display-value',
   BIBLIOGRAPHIC_RECORD: '/bibliographic-record',
+  AUTHORITY_RECORD: '/authority-record',
   SUGGEST_TAG_INDICATORS: '/filteredTag',
   SUGGEST_TAG_CODE: '/filteredTagsList',
   HEADING_BY_TAG: '/headings-by-tag',
@@ -90,3 +93,8 @@ export const SEPARATOR = '-';
 export const EMPTY_STRING = '';
 export const EMPTY_SPACED_STRING = ' ';
 export const SPACED_STRING_DOUBLE_QUOTE = " "; // eslint-disable-line quotes
+
+export const SEARCH_SEGMENT = {
+  BIBLIOGRAPHIC: 'bibliographic',
+  AUTHORITY: 'authority'
+};

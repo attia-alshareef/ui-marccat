@@ -7,7 +7,6 @@ import {
   Paneset,
   Icon,
   Button,
-  PaneMenu,
   MenuSection,
 } from '@folio/stripes/components';
 import { AppIcon } from '@folio/stripes-core';
@@ -75,7 +74,7 @@ export class BrowseResults extends React.Component<Props, S> {
   };
 
 
-  getActionMenu = (detail, items, { onToggle } = this.props) => (
+  getActionMenu = () => (
     <Fragment>
       <MenuSection>
         <EditRecordButton {...this.props} />
@@ -140,18 +139,14 @@ export class BrowseResults extends React.Component<Props, S> {
   };
 
   actionMenu = (
-    { onToggle },
-    {
-      data: {
-        data: { emptyRecord },
-      },
-    } = this.props
   ) => (
     <Fragment>
-      <MenuSection label="Actions">
+      <MenuSection id="data-test-browse-action-menu" label="Actions">
         <Button
+          data-test-browse-new-button
           buttonStyle="primary"
-          disabled={!emptyRecord}
+          // eslint-disable-next-line
+          disabled={!this.props.datastore.emptyRecord}
           onClick={this.handleCreateRecord}
         >
           <Icon icon="plus-sign" size="small">
@@ -232,7 +227,7 @@ export class BrowseResults extends React.Component<Props, S> {
                         id="refType1"
                         style={{ fontWeight: 'bold', margin: 0, padding: 0 }}
                       >
-                        {'See: '}
+                        {translate({ id: 'ui-marccat.browse.results.see' })`:`}
                       </span>
                       {element.stringText}
                     </Button>
@@ -252,7 +247,7 @@ export class BrowseResults extends React.Component<Props, S> {
                         id="textSpanRefType2"
                         style={{ fontWeight: 'bold', margin: 0, padding: 0 }}
                       >
-                        {'Seen From: '}
+                        {translate({ id: 'ui-marccat.browse.results.seenfrom' })`:`}
                       </span>
                       {element.stringText}
                     </Button>
@@ -353,6 +348,7 @@ export class BrowseResults extends React.Component<Props, S> {
           ) : isReadyBrowse ? (
             <MultiColumnList
               {...this.props}
+              id="data-test-browse-results"
               contentData={browseRecords}
               isEmptyMessage={C.EMPTY_STRING}
               formatter={browseFormatter}
@@ -380,6 +376,7 @@ export class BrowseResults extends React.Component<Props, S> {
         </Pane>
         {isNewSearch === 'N' && browseDetailPanelIsVisible && !rowClicked && (
           <Pane
+            id="data-test-browse-pane-detail"
             dismissible
             defaultWidth="30%"
             paneTitle={translate({ id: 'ui-marccat.browse.results.title' })}
@@ -397,7 +394,7 @@ export class BrowseResults extends React.Component<Props, S> {
         )}
         {isNewSearch === 'N' && browseDetailPanelIsVisible && isPanelOpen && (
           <Pane
-            id="pane-details"
+            id="associated-pane-details"
             defaultWidth="20%"
             paneTitle={
               <FormattedMessage id="ui-marccat.search.record.preview" />

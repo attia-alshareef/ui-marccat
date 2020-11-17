@@ -4,7 +4,19 @@
 
 * Adding translations and icons to `package.json` `files` array.
 * CHANGELOG cleanup
-* Peer-dep cleanup: increment `@folio/stripes` to `^v4.0`, `react-intl` to `v4.5`.
+* Peer-dep cleanup: increment `@folio/stripes` to `^v5.0`, `@folio/stripes-core` to `v6.0`, `react-intl` to `v4.5`.
+* Refactor from `bigtest/mirage` to `miragejs`.
+* Create buttons to separate the search by bibs/holds and authorities (UICAT-103)
+* Save and cancel buttons in the cataloguing worksheet like in Inventory (UICAT-104)
+* Redesign search panel as the inventory search panel (UICAT-111)
+* Resize panels, sometimes panels are cut and is not possible to resize (UICAT-110)
+* Search authority records (UICAT-106)
+* Add option to reset all in the search (UICAT-112)
+* Add support for running `yarn start --mirage`.
+* Change the panel of "No results found" (UICAT-113)
+* Improve search and reset all buttons and remove unused imports (UICAT-112)
+* Add button to delete authorites (UICAT-115)
+* Create new authority using a template by default (UICAT-114)
 
 ## [2.0.0](https://github.com/folio-org/ui-marccat/releases/v2.0.0) (2019-10-09)
 [Full Changelog](https://github.com/folio-org/ui-marccat/compare/v1.3.0...v2.0.0)

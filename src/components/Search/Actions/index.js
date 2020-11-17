@@ -100,3 +100,25 @@ export const resetHistoryAction = () => {
     type: ACTION.HISTORY_CLEAR,
   };
 };
+
+/**
+ *
+ * @param {*} payload
+ */
+export const resetFilterSearch = (segment) => {
+  return {
+    type: ACTION.FILTER_SEARCH_CLEAR,
+    segment
+  };
+};
+
+/**
+ *
+ * @param {*} payload
+ */
+export const segmentActive = (segment) => {
+  return {
+    type: ACTION.FILTER_SEGMENT_ACTIVE,
+    segment
+  };
+};

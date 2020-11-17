@@ -7,15 +7,13 @@ import {
   AccordionSet,
   Callout,
   Row,
-  PaneMenu,
   Button,
   Col,
   Icon,
-  EmptyMessage,
-  MenuSection,
+  PaneFooter
 } from '@folio/stripes/components';
-import { AppIcon } from '@folio/stripes-core';
 import { FormattedMessage } from 'react-intl';
+import { AppIcon } from '@folio/stripes-core';
 import { bindActionCreators } from 'redux';
 import { union, sortBy, includes } from 'lodash';
 import {
@@ -50,7 +48,7 @@ import { formFieldValue, resolve } from '../../../../redux/helpers/Selector';
 import { TAGS, TAG_NOT_REPEATABLE } from '../../Utils/MarcConstant';
 import DataFieldForm from '../Form/DataField';
 import VariableFieldForm from '../Form/VariableField';
-import { validateTag } from '../../../../shared/utils/Function';
+
 
 class Record extends React.Component<
   Props,
@@ -62,8 +60,14 @@ class Record extends React.Component<
       isCreationMode: findParam('mode') === RECORD_ACTION.CREATION_MODE,
       isEditMode: findParam('mode') === RECORD_ACTION.EDIT_MODE,
       isDuplicateMode: findParam('mode') === RECORD_ACTION.DUPLICATE_MODE,
-      mode: findParam('mode'),
-      id: findParam('id'),
+      mode:
+        findParam('mode') !== null
+          ? findParam('mode')
+          : props.location.state.mode,
+      id:
+        findParam('id') !== null
+          ? findParam('id')
+          : props.location.state.id,
       submit: false,
       deletedTag: false,
       statusCode: '',
@@ -367,7 +371,7 @@ class Record extends React.Component<
   };
 
   handleClose = (checkCodeForSearch, idFromBibRecord) => {
-    const { id, submit } = this.state;
+    const { submit } = this.state;
     const { dispatch, router, toggleFilterPane, reset } = this.props;
     if (checkCodeForSearch === 'OK') {
       dispatch({
@@ -397,47 +401,60 @@ class Record extends React.Component<
     return reset();
   };
 
-  actionMenu = (
-    { onToggle },
-    { isEditMode } = this.state,
-    { translate } = this.props
-  ) => (
-    <Fragment>
-      <MenuSection label="Actions">
+  lastMenu = () => {
+    const { isEditMode } = this.state;
+    const { translate } = this.props;
+    return (
+      (isEditMode) ? (
         <Button
           buttonStyle="primary"
-          onClick={this.saveRecord}
           buttonClass={style.rightPosition}
+          onClick={this.deleteRecord}
           type="button"
+          disabled={false}
           marginBottom0
         >
-          {isEditMode ? (
-            <Icon icon="edit">
-              {translate({ id: 'ui-marccat.cataloging.record.edit' })}
-            </Icon>
-          ) : (
-            <Icon icon="plus-sign">
-              {translate({ id: 'ui-marccat.cataloging.record.create' })}
-            </Icon>
-          )}
+          {translate({ id: 'ui-marccat.cataloging.record.delete' })}
         </Button>
-        {isEditMode && (
-          <Button
-            buttonStyle="primary"
-            buttonClass={style.rightPosition}
-            onClick={this.deleteRecord}
-            type="button"
-            disabled={false}
-            marginBottom0
-          >
-            <Icon icon="trash">
-              {translate({ id: 'ui-marccat.cataloging.record.delete' })}
-            </Icon>
-          </Button>
-        )}
-      </MenuSection>
-    </Fragment>
-  );
+      ) : (null)
+    );
+  };
+
+  getFooter = () => {
+    /* const {
+      onCancel,
+      handleSubmit,
+      pristine,
+      submitting,
+      copy,
+    } = this.props;*/
+    const cancelButton = (
+      <Button
+        buttonStyle="default mega"
+        id="cancel-instance-edition"
+        onClick={() => this.handleClose()}
+      >
+        <FormattedMessage id="ui-marccat.button.cancel" />
+      </Button>
+    );
+    const saveButton = (
+      <Button
+        id="clickable-save-instance"
+        buttonStyle="primary mega"
+        type="submit"
+        onClick={this.saveRecord}
+      >
+        <FormattedMessage id="ui-marccat.button.saveAndClose" />
+      </Button>
+    );
+
+    return (
+      <PaneFooter
+        renderStart={cancelButton}
+        renderEnd={saveButton}
+      />
+    );
+  };
 
   render() {
     const { leaderData } = this.props;
@@ -458,9 +475,10 @@ class Record extends React.Component<
             }
             paneSub={'id. ' + bibliographicRecord.id || id}
             appIcon={<AppIcon app={C.META.ICON_TITLE} />}
-            actionMenu={this.actionMenu}
+            lastMenu={this.lastMenu()}
             dismissible
             onClose={() => this.handleClose()}
+            footer={this.getFooter()}
           >
             <Row center="xs">
               <Col xs={12} sm={6} md={8} lg={8}>

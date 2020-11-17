@@ -7,7 +7,6 @@ import {
   Paneset,
   HotKeys,
   MenuSection,
-  Checkbox,
   Button,
   Icon,
 } from '@folio/stripes/components';
@@ -26,7 +25,7 @@ import {
   AssociatedRecordPane,
 } from './components';
 import { EditRecordButton } from '..';
-import { emptyRecordAction } from '../../Cataloguing/Actions';
+import { emptyRecordAction, emptyRecordAuthAction } from '../../Cataloguing/Actions';
 import { searchDetailAction } from '../Actions';
 import * as C from '../../../config/constants';
 import CheckBox from '../../../shared/lib/Button/CheckBox';
@@ -79,10 +78,21 @@ export class SearchResults extends React.Component<P, {}> {
     const {
       router,
       toggleFilterPane,
-      datastore: { emptyRecord },
+      datastore: { emptyRecord, emptyRecordAuth },
+      data: { search: { segment } }
     } = this.props;
+
+    const emptyRecordAux =
+      segment === C.SEARCH_SEGMENT.BIBLIOGRAPHIC
+        ? emptyRecord
+        : emptyRecordAuth;
+
     toggleFilterPane();
-    router.push(`/marccat/cataloging?id=${emptyRecord.results.id}&mode=new`);
+    router.push({
+      pathname: '/marccat/cataloging',
+      search: `?id=${emptyRecordAux.results.id}&mode=new`,
+      state: { id: emptyRecordAux.results.id, mode: 'new' },
+    });
   };
 
   openDetailFromCataloguing = () => {
@@ -204,7 +214,6 @@ export class SearchResults extends React.Component<P, {}> {
   };
 
   actionMenu = (
-    { onToggle },
     { checkGroupLabels } = this.state,
     {
       data: { filter: { name, checked },
@@ -225,11 +234,16 @@ export class SearchResults extends React.Component<P, {}> {
           })}
         </MenuSection>
         : null}
-      <MenuSection label="Actions">
+      <MenuSection
+        data-test-action-button
+        label="Actions"
+      >
         <Button
+          data-test-new-record-button
           buttonStyle="primary"
           disabled={!emptyRecord}
           onClick={this.handleCreateRecord}
+          id="clickable-dropdown-new-record"
         >
           <Icon icon="plus-sign" size="small">
             {Localize({ key: 'search.record.new' })}
@@ -262,8 +276,17 @@ export class SearchResults extends React.Component<P, {}> {
       closePanels,
       totalAuth,
       totalBib,
+      bibsOnlyFilter,
+      autOnlyFilter,
     } = this.props;
     let { bibliographicResults, authorityResults } = this.props;
+
+    if (bibsOnlyFilter) {
+      bibsOnly = bibsOnlyFilter;
+    }
+    if (autOnlyFilter) {
+      autOnly = autOnlyFilter;
+    }
 
     if (activeFilter) {
       const filterArray = [];
@@ -332,7 +355,7 @@ export class SearchResults extends React.Component<P, {}> {
       (bibsOnly === true && autOnly === true) ||
       (bibsOnly === false && autOnly === false)
     ) {
-      if (bibliographicResults && bibliographicResults.length > 0) {
+      if ((bibliographicResults && bibliographicResults.length > 0) || (authorityResults && authorityResults.length > 0)) {
         mergedRecord = [...authorityResults, ...bibliographicResults];
       }
     }
@@ -371,6 +394,7 @@ export class SearchResults extends React.Component<P, {}> {
     } else if (!bibsOnly && !autOnly) {
       message = messageAuth.concat('/').concat(messageBib);
     }
+
     const messageNoContent = (
       <FormattedMessage id="ui-marccat.search.initial.message" />
     );
@@ -397,8 +421,8 @@ export class SearchResults extends React.Component<P, {}> {
             authorityResults={authorityResults}
             handleDetails={this.handleDetails}
             isReady={isReady}
-            autOnly={autOnly}
             bibsOnly={bibsOnly}
+            autOnly={autOnly}
             loading={loading}
             messageNoContent={messageNoContent}
           />
@@ -410,6 +434,8 @@ export class SearchResults extends React.Component<P, {}> {
               detail={detail}
               isFetchingDetail={isFetchingDetail}
               isReadyDetail={isReadyDetail}
+              bibsOnly={bibsOnly}
+              autOnly={autOnly}
               onClose={() => this.setState({ detailPanelIsVisible: false })}
               rightMenuEdit={<EditRecordButton {...this.props} />}
             />
@@ -433,6 +459,13 @@ export class SearchResults extends React.Component<P, {}> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch: dispatch(emptyRecordAction()),
+    dispatchAuth: dispatch(emptyRecordAuthAction()),
+  };
+};
 
 export default connect(
   ({
@@ -474,6 +507,8 @@ export default connect(
     closePanels: panels.closePanels,
     totalBib: totalBibRecords.totalBibDoc,
     totalAuth: totalAuthRecords.totalAuthDoc,
+    bibsOnlyFilter: search.bibsOnlyFilter,
+    autOnlyFilter: search.autOnlyFilter,
   }),
-  dispatch => dispatch(emptyRecordAction())
+  mapDispatchToProps
 )(injectProps(SearchResults));
